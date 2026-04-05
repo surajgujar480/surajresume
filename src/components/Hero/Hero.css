@@ -1,0 +1,446 @@
+  /* -----------------------------------------------------------
+    1. BASE STYLES (Mobile First)
+  ----------------------------------------------------------- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column-reverse; /* Image on top for mobile */
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: radial-gradient(circle at center, rgb(0, 0, 70), rgb(0, 0, 43));
+    color: white;
+    gap: 40px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    text-align: center;
+    z-index: 10;
+    animation: fadeSlideUp 1s ease forwards;
+  }
+
+  /* -----------------------------------------------------------
+    2. TYPOGRAPHY & BUTTONS
+  ----------------------------------------------------------- */
+  .hero-title {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(97, 219, 251, 0.5);
+  }
+
+
+  .fade-slide {
+    color: #61fb8f;
+    font-size: 1.3rem;
+    border-right: 3px solid #61DBFB;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    margin: 0 auto 15px auto;
+    animation: typing 3s steps(25, end) forwards, blink 0.7s infinite;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    line-height: 1.6;
+    margin-bottom: 25px;
+  }
+
+  .hero-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .btn-hero {
+    padding: 10px 24px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-main {
+    background-color: #61DBFB;
+    color: rgb(0, 0, 43);
+    box-shadow: 0 0 15px rgba(97, 219, 251, 0.3);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid #61DBFB;
+    color: #61DBFB;
+  }
+
+  .btn-hero:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  }
+
+  /* -----------------------------------------------------------
+    3. CANVAS & 3D CARD CONTAINER
+  ----------------------------------------------------------- */
+  .hero-img-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #hexCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .card-3d {
+    width: 260px;
+    height: 340px;
+    border-radius: 20px;
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(97, 219, 251, 0.3);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+  }
+
+  .card-3d img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    pointer-events: none;
+    transform: translateZ(10px); /* Slight lift */
+  }
+
+  /* About Me Button Inside Card */
+  .about-btn-wrapper {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(30px);
+    z-index: 20;
+  }
+
+  .btn-about {
+    background: #61DBFB;
+    color: rgb(0, 0, 43);
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  /* -----------------------------------------------------------
+    4. RESPONSIVE BREAKPOINTS
+  ----------------------------------------------------------- */
+
+  /* Tablet */
+  @media (min-width: 768px) {
+    .hero-title { font-size: 2.8rem; }
+    .hero-btns { flex-direction: row; justify-content: center; }
+    .card-3d { width: 300px; height: 380px; }
+  }
+
+  /* Desktop (Side-by-Side) */
+  @media (min-width: 1024px) {
+    .hero {
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 0 8%;
+      text-align: left;
+    }
+
+    .hero-content {
+      max-width: 50%;
+      text-align: left;
+    }
+
+    .fade-slide {
+      margin: 0 0 15px 0;
+    }
+
+    .hero-btns {
+      justify-content: flex-start;
+    }
+
+    .hero-img-container {
+      max-width: 500px;
+      height: 500px;
+    }
+  }
+
+  /* -----------------------------------------------------------
+    5. ANIMATIONS
+  ----------------------------------------------------------- */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+  @keyframes blink {
+    50% { border-color: transparent }
+  }
+
+  @keyframes fadeSlideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* Confetti Styles (Triggered via JS) */
+  .confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    z-index: 15;
+    animation: fly 1.5s forwards ease-out;
+  }
+
+  @keyframes fly {
+    0% { transform: translate(0,0) scale(1); opacity:1; }
+    100% { transform: translate(var(--x, 0), var(--y, -200px)) scale(0.5); opacity:0; }
+  }
+  /* -----------------------------------------------------------
+    2. TYPOGRAPHY & BUTTONS
+  ----------------------------------------------------------- */
+  .hero-title {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(97, 219, 251, 0.5);
+  }
+
+  /* Moved this OUTSIDE the hero-title braces */
+ /* 1. HERO TITLE (Main Top Section) */
+.hero-title {
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(to right, #61DBFB, #00ff88);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+/* 2. PROJECTS SECTION HEADER (Matches Hero Style) */
+.projects-header .title {
+  /* Using the same gradient logic as the hero */
+  background: linear-gradient(to right, #61DBFB, #00ff88);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* Slightly smaller scaling for the section title */
+  font-size: clamp(2rem, 5vw, 2.8rem); 
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+  
+  /* Fallback for older browsers */
+  display: inline-block; 
+  color: #61DBFB; 
+}
+
+.projects-header .subtitle {
+  color: #61DBFB;
+  opacity: 0.8;
+  font-size: 1.1rem;
+  margin-top: 5px;
+}
+
+  .fade-slide {
+    color: #61DBFB;
+    font-size: 1.3rem;
+    border-right: 3px solid #61DBFB;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    margin: 0 auto 15px auto;
+    animation: typing 3s steps(25, end) forwards, blink 0.7s infinite;
+  }
+
+  /* Container for context (dark background) */
+
+
+/* The text wrapper */
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Space between dot and text */
+  color: #00ff95; /* Vibrant neon green */
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* The neon dot */
+.dot-blink {
+  width: 10px;
+  height: 10px;
+  background-color: #00ff95;
+  border-radius: 50%;
+  display: inline-block;
+  /* Fixed glow */
+  box-shadow: 0 0 10px rgba(0, 255, 149, 0.8);
+  animation: pulse-simple 1.5s ease-in-out infinite;
+}
+
+/* Subtle pulse animation */
+@keyframes pulse-simple {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+}
+  /* CodingRecapButton.css */
+
+.coding-recap-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(0, 123, 255, 0.2);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+.coding-recap-button:hover {
+  background: rgba(0, 123, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,123,255,0.4);
+}
+/* --- Base Desktop Style --- */
+.coding-recap-button {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  /* Background set to Dark Blue */
+  background: #112240; 
+  color: #64ffda; /* Text color changed to your Cyan accent */
+  
+  padding: 8px 15px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  transition: all 0.3s ease;
+}
+
+.coding-recap-button img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  /* Optional: filter to make logo pop on dark bg */
+  filter: drop-shadow(0 0 2px rgba(100, 255, 218, 0.5));
+}
+
+/* --- Mobile Media Query Resolution --- */
+@media (max-width: 600px) {
+  .coding-recap-button {
+    /* Fixed Circle Size */
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    
+    /* Position */
+    top: 10px;
+    right: 10px;
+    
+    /* Dark Blue Background */
+    background-color: #112240 !important;
+    border: 2px solid #64ffda !important;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .coding-recap-button span {
+    display: none !important;
+  }
+
+  .coding-recap-button img {
+    width: 26px !important;
+    height: 26px !important;
+    margin: 0 !important;
+  }
+}
+
+.hero-icons-container {
+  display: flex;
+  gap: 20px;            /* Clear separation */
+  margin: 18px 0;
+  align-items: center;
+}
+
+.icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.2s ease;
+}
+
+.tech-icon {
+  font-size: 1.2rem;    /* Small and crisp */
+  color: #8892b0;       /* Muted gray default */
+  transition: color 0.3s ease;
+}
+
+.icon-wrapper:hover .tech-icon {
+  color: #64ffda;       /* Highlight on hover */
+  transform: scale(1.1);
+}
+
+.tech-label {
+  font-size: 0.6rem;    /* Tiny, clean text */
+  color: #64ffda;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0;           /* Hidden until hover */
+  transition: opacity 0.3s ease;
+}
+
+.icon-wrapper:hover .tech-label {
+  opacity: 1;
+}

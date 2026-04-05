@@ -1,0 +1,109 @@
+/* ================= NEW ANIMATIONS ================= */
+
+/* Scroll Reveal Animation (CSS Only - Modern Browsers) */
+@keyframes revealOnScroll {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.reveal {
+  /* This creates the scroll-linked trigger */
+  view-timeline-name: --revealing-item;
+  view-timeline-axis: block;
+  
+  /* The animation triggers when the element enters the viewport */
+  animation: revealOnScroll linear both;
+  animation-timeline: --revealing-item;
+  animation-range: entry 10% cover 30%;
+}
+
+/* ================= NEW COMPONENTS ================= */
+
+/* 1. Timeline Badge */
+.edu-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(97, 219, 251, 0.1);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 2. Stats Grid (For Rank, Year, Credits) */
+.edu-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+}
+
+/* 3. Course Tags */
+.course-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.tag {
+  background: #222;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  transition: background 0.3s;
+}
+
+.tag:hover {
+  background: var(--primary);
+  color: var(--bg-dark);
+}
+
+/* 4. Floating Decoration */
+.edu-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.edu-card::after {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 100px;
+  height: 100px;
+  background: var(--primary);
+  filter: blur(80px);
+  opacity: 0.2;
+  pointer-events: none;
+}

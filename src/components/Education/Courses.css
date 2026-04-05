@@ -1,0 +1,140 @@
+.courses-section {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, rgb(0, 0, 20), rgb(0, 0, 5));
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.courses-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.inner-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* CONSISTENT HEADER */
+.courses-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.courses-header .title {
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(to right, #61DBFB, #00ff88);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* MODERN GRID SYSTEM */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.course-glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  animation: cardEntry 0.6s ease forwards;
+}
+
+.course-glass-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #61DBFB;
+  box-shadow: 0 10px 30px rgba(97, 219, 251, 0.15);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.category-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #61DBFB;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #00ff88;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ff88;
+}
+
+.card-body h4 {
+  color: #fff;
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.provider {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.card-footer {
+  margin-top: 30px;
+}
+
+.cert-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.3s ease;
+}
+
+.cert-link:hover {
+  color: #00ff88;
+  gap: 12px;
+}
+
+.arrow-icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+@keyframes cardEntry {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+}

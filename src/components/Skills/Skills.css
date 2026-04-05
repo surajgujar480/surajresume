@@ -1,0 +1,151 @@
+/* SECTION WRAPPER */
+.skills-section {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, rgb(0, 0, 35), rgb(0, 0, 10));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  overflow: hidden;
+}
+
+.skills-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.skills-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  width: 100%;
+  text-align: center;
+}
+
+/* GRADIENT TEXT TITLE */
+.skills-header .title {
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
+  font-weight: 800;
+  background: linear-gradient(to right, #61DBFB, #00ff88);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #61DBFB;
+  opacity: 0.8;
+  font-size: 1.1rem;
+  margin-bottom: 50px;
+}
+
+/* HONEYCOMB GRID SYSTEM */
+.honeycomb-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.hex-wrapper {
+  width: 160px;
+  height: 180px;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  animation: skillFadeIn 0.6s forwards;
+}
+
+/* THE HEXAGON SHAPE */
+.skill-hex-card {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  /* The Magic: Creates the 6-sided shape */
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  border: 1px solid rgba(97, 219, 251, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hex-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.3s ease;
+}
+
+.skill-icon {
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(0 0 8px rgba(97, 219, 251, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.skill-name {
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+
+/* HOVER EFFECTS & GLOW */
+.hex-wrapper:hover {
+  transform: translateY(-10px) scale(1.1);
+  z-index: 20;
+}
+
+.hex-wrapper:hover .skill-hex-card {
+  background: rgba(97, 219, 251, 0.15);
+  border: 2px solid #61DBFB;
+  box-shadow: 0 0 30px rgba(97, 219, 251, 0.3);
+}
+
+.hex-wrapper:hover .skill-icon {
+  transform: scale(1.1);
+}
+
+/* ANIMATIONS */
+@keyframes skillFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* MOBILE ADAPTATION */
+@media (max-width: 600px) {
+  .hex-wrapper {
+    width: 130px;
+    height: 150px;
+  }
+  
+  .skill-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .skill-name {
+    font-size: 0.75rem;
+  }
+}
+
+

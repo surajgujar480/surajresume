@@ -1,0 +1,182 @@
+/* -----------------------------------------------------------
+   1. BASE STYLES (Mobile First)
+----------------------------------------------------------- */
+.about-section {
+  position: relative;
+  padding: 80px 20px;
+  background: linear-gradient(to bottom, rgb(0, 0, 43), rgb(0, 0, 20));
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Canvas background (forced to back) */
+.about-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.about-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column; /* Stacked for mobile */
+  align-items: center;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center; /* Center text for mobile */
+}
+
+/* -----------------------------------------------------------
+   2. IMAGE & MORPHING EFFECT
+----------------------------------------------------------- */
+.about-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.about-image img {
+  width: 180px;
+  height: 180px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  /* Custom blob shape */
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  border: 4px solid rgba(97, 219, 251, 0.3);
+  box-shadow: 0 0 30px rgba(97, 219, 251, 0.2);
+  transition: all 0.5s ease-in-out;
+}
+
+.about-image img:hover {
+  border-radius: 50%;
+  transform: scale(1.05);
+  box-shadow: 0 0 50px rgba(97, 219, 251, 0.5);
+  border-color: #61DBFB;
+}
+
+/* -----------------------------------------------------------
+   3. TEXT CONTENT & TYPOGRAPHY
+----------------------------------------------------------- */
+.about-content {
+  flex: 1.5;
+}
+
+.about-title {
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(to right, #61DBFB, #00ff88);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.about-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #ccd6f6;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+/* Personal Info List */
+.about-info {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about-info li {
+  font-size: 1.05rem;
+  display: flex;
+  flex-direction: column; /* Stack label/value for mobile */
+  align-items: center;
+  gap: 4px;
+}
+
+.about-info li strong {
+  color: #61DBFB;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+/* -----------------------------------------------------------
+   4. BUTTONS & ACTIONS
+----------------------------------------------------------- */
+.btn-primary {
+  display: inline-block;
+  padding: 12px 30px;
+  background: transparent;
+  border: 2px solid #61DBFB;
+  color: #61DBFB !important;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #61DBFB;
+  color: rgb(0, 0, 43) !important;
+  box-shadow: 0 0 20px rgba(97, 219, 251, 0.4);
+  transform: translateY(-3px);
+}
+
+/* -----------------------------------------------------------
+   5. RESPONSIVE BREAKPOINTS (Desktop)
+----------------------------------------------------------- */
+@media (min-width: 968px) {
+  .about-section {
+    padding: 100px 10%;
+  }
+
+  .about-container {
+    flex-direction: row; /* Side by side */
+    text-align: left;
+    gap: 80px;
+  }
+
+  .about-content {
+    text-align: left;
+  }
+
+  .about-image img {
+    width: 250px;
+    height: 250px;
+  }
+
+  .about-info li {
+    flex-direction: row; /* Horizontal list */
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .about-info li strong {
+    width: 110px;
+    flex-shrink: 0;
+  }
+
+  .about-description {
+    font-size: 1.15rem;
+  }
+}

@@ -1,0 +1,360 @@
+/* ================= GLOBAL RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #61DBFB;
+  --bg-dark: rgb(0, 0, 43);
+  --text-light: #ccc;
+}
+
+/* ================= NAVBAR BASE ================= */
+.navbar {
+  width: 100%;
+  padding: 15px 0;
+  background-color: var(--bg-dark);
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+  border-bottom: 1px solid rgba(97, 219, 251, 0.2);
+}
+
+.nav-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.logo {
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary);
+}
+
+/* ================= DESKTOP NAV LINKS ================= */
+.nav-links {
+  display: flex;
+  gap: 50px;
+  list-style: none;
+  align-items: flex-end;
+}
+
+.nav-item-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+}
+
+.nav-item-wrapper a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+}
+
+.nav-item-wrapper:hover a {
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary);
+}
+
+/* ================= LIGHT BULB & WIRE (DESKTOP) ================= */
+.light-bulb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 5;
+  background-image: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5) 0%, transparent 80%);
+  animation: glowEffect 1.5s infinite alternate ease-in-out;
+}
+
+/* Socket (Desktop only) */
+.light-bulb::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 12px;
+  background-color: #000;
+  border-radius: 2px;
+}
+
+/* Hanging Wire (Desktop only) */
+.nav-item-wrapper:not(:first-child)::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 50%;
+  width: 64px; 
+  height: 20px;
+  border-bottom: 2px solid #1a1a1a;
+  border-radius: 0 0 50% 50%;
+  z-index: 1;
+}
+
+/* ================= BULB COLORS ================= */
+.theme-color-one   { background-color: #025ba0; color: #025ba0; }
+.theme-color-two   { background-color: #9bc72b; color: #9bc72b; }
+.theme-color-three { background-color: #f0c517; color: #f0c517; }
+.theme-color-four  { background-color: #bf1724; color: #bf1724; }
+.theme-color-five  { background-color: #5cc9f4; color: #5cc9f4; }
+
+@keyframes glowEffect {
+  0% { box-shadow: 0 0 8px currentColor; filter: brightness(0.8); }
+  100% { box-shadow: 0 0 25px 10px currentColor; filter: brightness(1.3); }
+}
+
+/* ================= HAMBURGER ================= */
+#hum {
+  display: none;
+  font-size: 1.8rem;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+/* ================= MOBILE MEDIA QUERY (RESOLVED) ================= */
+@media (max-width: 768px) {
+  #hum { display: block; }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--bg-dark);
+    display: none;
+    
+    /* Layout: Flex Wrap lets us put bulbs on top row */
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    padding: 30px 10px;
+    gap: 15px; /* Spacing between bulbs at top */
+    border-bottom: 2px solid rgba(97, 219, 251, 0.3);
+  }
+
+  .nav-links.active { display: flex; }
+
+  /* Force LI to behave like a transparent box so we can reorder children */
+  .nav-item-wrapper {
+    display: contents; 
+  }
+
+  /* 1. MOVE ALL BULBS TO TOP ROW */
+  .light-bulb {
+    order: 1; 
+    width: 18px;
+    height: 18px;
+    margin: 0 8px 30px 8px; /* Bottom margin pushes the links row down */
+  }
+
+  /* 2. MOVE ALL LINKS BELOW */
+  .nav-item-wrapper a {
+    order: 2; 
+    flex-basis: 100%; /* Forces link to occupy full width line */
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 12px 0;
+    padding: 10px 0;
+    letter-spacing: 2px;
+  }
+
+  /* 3. HIDE DESKTOP DECORATIONS */
+  .nav-item-wrapper::after, 
+  .light-bulb::before {
+    display: none; 
+  }
+}
+/* ================= NAV LINKS (Updated) ================= */
+.nav-item-wrapper a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative; /* For the underline effect */
+  padding: 5px 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+}
+
+/* 1. Excellent Hover Effect: Neon Underline */
+.nav-item-wrapper a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+
+.nav-item-wrapper:hover a {
+  color: white;
+  letter-spacing: 2px; /* Expands slightly */
+  text-shadow: 0 0 10px rgba(97, 219, 251, 0.8);
+}
+
+.nav-item-wrapper:hover a::after {
+  width: 100%; /* Line grows from center */
+}
+
+/* ================= MOBILE ENTRANCE ANIMATION ================= */
+@media (max-width: 768px) {
+  /* ... existing nav-links styles ... */
+
+  .nav-links.active .nav-item-wrapper a {
+    animation: slideUpFade 0.5s ease forwards;
+    opacity: 0; /* Start invisible */
+  }
+
+  /* Stagger the links so they appear one after another */
+  .nav-links.active .nav-item-wrapper:nth-child(1) a { animation-delay: 0.1s; }
+  .nav-links.active .nav-item-wrapper:nth-child(2) a { animation-delay: 0.2s; }
+  .nav-links.active .nav-item-wrapper:nth-child(3) a { animation-delay: 0.3s; }
+  .nav-links.active .nav-item-wrapper:nth-child(4) a { animation-delay: 0.4s; }
+  .nav-links.active .nav-item-wrapper:nth-child(5) a { animation-delay: 0.5s; }
+}
+
+/* Keyframes for the Mobile Entrance */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Refined Bulb Glow (Smoother) */
+@keyframes glowEffect {
+  0% { 
+    box-shadow: 0 0 8px currentColor; 
+    transform: scale(1);
+    filter: brightness(0.8); 
+  }
+  100% { 
+    box-shadow: 0 0 20px 8px currentColor, 0 0 40px 4px currentColor; 
+    transform: scale(1.1); /* Bulb actually grows slightly with the light */
+    filter: brightness(1.4); 
+  }
+}
+/* ================= LOGO DANCE ================= */
+.logo {
+  position: relative;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* The Dance Animation */
+.dance-active {
+  animation: logoDance 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes logoDance {
+  0%, 100% { transform: rotate(0) scale(1); }
+  20% { transform: rotate(-15deg) scale(1.2); }
+  40% { transform: rotate(15deg) scale(1.2); }
+  60% { transform: rotate(-10deg) scale(1.1); }
+  80% { transform: rotate(10deg) scale(1.1); }
+}
+
+/* ================= WELCOME SYMBOL ================= */
+.welcome-symbol {
+  position: absolute;
+  top: -40px; /* Appears above the logo */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  pointer-events: none;
+  animation: welcomePop 1s ease-out forwards;
+  text-shadow: 0 0 15px var(--primary);
+}
+
+@keyframes welcomePop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 20px) scale(0.5);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -10px) scale(1.5);
+  }
+  100% {
+     opacity: 0;
+    transform: translate(-50%, -50px) scale(1);
+    filter: blur(2px);
+  }
+}
+
+
+/* ================= HEART CONTAINER ================= */
+.hearts-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ================= HEART BASE ================= */
+.heart {
+  position: absolute;
+  font-size: 16px;
+  opacity: 0;
+  animation: heartBurst 1s ease-out forwards;
+}
+
+/* ================= BURST ANIMATION ================= */
+@keyframes heartBurst {
+  0% {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), -90px) scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* ================= SPREAD DIRECTIONS ================= */
+.heart-0 { --x: -120px; animation-delay: 0s; }
+.heart-1 { --x: -90px;  animation-delay: 0.3s; }
+.heart-2 { --x: -60px;  animation-delay: 0.6s; }
+.heart-3 { --x: -30px;  animation-delay: 0.9s; }
+.heart-4 { --x: 0px;    animation-delay: 1.2s; }
+.heart-5 { --x: 30px;   animation-delay: 1.5s; }
+.heart-6 { --x: 60px;   animation-delay: 0.4s; }
+.heart-7 { --x: 90px;   animation-delay: 0.8s; }
+.heart-8 { --x: 120px;  animation-delay: 1.1s; }
+.heart-9 { --x: -150px; animation-delay: 1.7s; }
+
+
+
