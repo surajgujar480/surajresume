@@ -1,143 +1,119 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./About.css";
 import aboutImg from "../../assets/aboutpol.jpg";
+
+const EXPERIENCES = [
+  { id: 1, emoji: '⚛️', tag: 'Internship React ', company: 'Makryto Innovation Solution', location: 'Amravati, MH  |Feb 2022 – May 2022', current: false },
+  { id: 2, emoji: '🌐', tag: 'Web Developer', company: 'NISA Industrial Services Pvt Ltd.', location: 'Pune | Feb 2025 – Nov 2025', current: false },
+  { id: 3, emoji: '👨‍💻', tag: 'MERN Stack Developer', company: 'CyberTrident Solution Pvt Ltd.', location: 'Pune | Jan 2026  Present', current: true }
+];
 
 export default function About() {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Auto-rotate cards
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % EXPERIENCES.length);
+    }, 4000); // Increased time for readability
+    return () => clearInterval(interval);
+  }, []);
+
+  // Particle Canvas Logic
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    const container = containerRef.current;
+    let animationId;
+    let layers = [];
 
-    let dots = [];
-    const dotCount = 40;
-    const mouse = { x: -1000, y: -1000, radius: 120 };
+    const initCanvas = () => {
+      const { width, height } = containerRef.current.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
+      
+      const createLayer = (count, size, speed, opacity) => 
+        Array.from({ length: count }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * size + 0.5,
+          vx: (Math.random() - 0.5) * speed,
+          vy: (Math.random() - 0.5) * speed,
+          opacity
+        }));
 
-    const init = () => {
-      canvas.width = container.offsetWidth;
-      canvas.height = container.offsetHeight;
-      dots = [];
-      for (let i = 0; i < dotCount; i++) {
-        dots.push(new Dot());
-      }
-    };
-
-    class Dot {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.baseX = this.x;
-        this.baseY = this.y;
-        this.size = Math.random() * 3 + 1;
-        // Movement speed
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-      }
-
-      update() {
-        // Constant slow drift
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Wrap around screen
-        if (this.x < 0) this.x = canvas.width;
-        if (this.x > canvas.width) this.x = 0;
-        if (this.y < 0) this.y = canvas.height;
-        if (this.y > canvas.height) this.y = 0;
-
-        // Mouse Interaction (Pushing dots away)
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const distance = Math.hypot(dx, dy);
-        
-        if (distance < mouse.radius) {
-          const force = (mouse.radius - distance) / mouse.radius;
-          const directionX = dx / distance;
-          const directionY = dy / distance;
-          this.x -= directionX * force * 5;
-          this.y -= directionY * force * 5;
-        }
-      }
-
-      draw() {
-        ctx.fillStyle = "rgba(97, 219, 251, 0.4)";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Add a small glow to some dots
-        if(this.size > 3) {
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = "#61DBFB";
-            ctx.fill();
-            ctx.shadowBlur = 0;
-        }
-      }
-    }
-
-    const handleMouseMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    };
-
-    const handleMouseLeave = () => {
-      mouse.x = -1000;
-      mouse.y = -1000;
+      layers = [
+        createLayer(30, 1.2, 0.2, 0.2),
+        createLayer(20, 2, 0.4, 0.4),
+        createLayer(10, 3, 0.6, 0.6)
+      ];
     };
 
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      dots.forEach(dot => {
-        dot.update();
-        dot.draw();
+      const { width, height } = containerRef.current.getBoundingClientRect();
+      ctx.clearRect(0, 0, width, height);
+
+      layers.forEach(layer => {
+        layer.forEach(dot => {
+          dot.x += dot.vx;
+          dot.y += dot.vy;
+          if (dot.x < 0 || dot.x > width) dot.vx *= -1;
+          if (dot.y < 0 || dot.y > height) dot.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(97, 219, 251, ${dot.opacity})`;
+          ctx.fill();
+        });
       });
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     };
 
-    init();
+    initCanvas();
     animate();
-    window.addEventListener("resize", init);
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseleave", handleMouseLeave);
-
+    window.addEventListener("resize", initCanvas);
     return () => {
-      window.removeEventListener("resize", init);
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseleave", handleMouseLeave);
+      cancelAnimationFrame(animationId);
+      window.removeEventListener("resize", initCanvas);
     };
   }, []);
 
   return (
     <section id="about" className="about-section" ref={containerRef}>
-      {/* Subtle Drift Canvas */}
-      <canvas ref={canvasRef} className="about-canvas"></canvas>
-
+      <canvas ref={canvasRef} className="about-canvas" />
+      
       <div className="about-container">
-        <div className="about-image">
-           <img src={aboutImg} alt="Suraj Gujar" />
+        <div className="about-image-wrapper">
+          <img src={aboutImg} alt="Suraj Gujar" className="about-img" />
+          <div className="image-blob"></div>
         </div>
 
         <div className="about-content">
           <h2 className="about-title">About Me</h2>
           <p className="about-description">
-            I am a passionate <strong>Full-Stack Developer</strong> from Pune, 
-            specializing in the <strong>MERN stack</strong>. I build modern, responsive, and 
-            user-friendly web applications with a focus on clean code and performance.
+            I am a <strong>Full-Stack Developer</strong> based in Pune, specialized in crafting high-performance web applications using the <strong>MERN</strong> stack. I bridge the gap between complex backend logic and intuitive frontend design.
           </p>
-          
-          <ul className="about-info">
-            <li><strong>Location:</strong> Pune, India</li>
-            <li><strong>Role:</strong> Web Developer</li>
-            <li><strong>Experience:</strong> CyberTrident Systems (CTS)</li>
-          </ul>
 
-          <div className="about-action">
-            <a href="https://www.cybertrident.in/" target="_blank" rel="noreferrer" className="btn-primary">
-              Visit Official Site
-            </a>
+          <div className="exp-carousel">
+            {EXPERIENCES.map((exp, index) => (
+              <div
+                key={exp.id}
+                className={`exp-card ${index === currentIndex ? "active" : "inactive"} ${exp.current ? "current-job" : ""}`}
+              >
+                <div className="exp-header">
+                  <span className="exp-emoji">{exp.emoji}</span>
+                  <span className="exp-tag">
+                    {exp.current && <span className="pulse-dot"></span>}
+                    {exp.tag}
+                  </span>
+                </div>
+                <h3 className="exp-company">{exp.company}</h3>
+                <p className="exp-location">{exp.location}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

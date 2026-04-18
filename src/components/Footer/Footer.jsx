@@ -110,7 +110,7 @@ export default function Footer() {
         {isChatOpen && (
           <div className="chat-window">
             <div className="chat-header">
-              <span>◀️CHAT-BOAT▶️🎴🎴🎴🎴🎴</span>
+              <span>◀️GET IN TOUCH▶️</span>
               <button className="close-chat" onClick={() => setIsChatOpen(false)}>×</button>
             </div>
             <form onSubmit={handleSubmit} className="chat-form">
@@ -161,7 +161,7 @@ export default function Footer() {
           className={`ai-cat-bot ${isChatOpen ? "active" : ""}`} 
           onClick={() => setIsChatOpen(!isChatOpen)}
         >
-          <span className="cat-tooltip">Click me to Contact ◀️CHAT-BOAT▶️ (💯%)work!🎴</span>
+          <span className="cat-tooltip">CONTACT(💯%)work!</span>
           <div className="cat-ears"></div>
           <div className="cat-eyes">
             <div className="eye"></div>

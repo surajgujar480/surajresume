@@ -1,182 +1,181 @@
-/* -----------------------------------------------------------
-   1. BASE STYLES (Mobile First)
------------------------------------------------------------ */
+/* --- SECTION BASE --- */
 .about-section {
   position: relative;
-  padding: 80px 20px;
-  background: linear-gradient(to bottom, rgb(0, 0, 43), rgb(0, 0, 20));
-  color: white;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 100px 5%;
+  background: #020617; /* Darker, modern slate */
+  color: #f8fafc;
   overflow: hidden;
-  z-index: 0;
 }
 
-/* Canvas background (forced to back) */
 .about-canvas {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  inset: 0;
   pointer-events: none;
+  opacity: 0.6;
 }
 
 .about-container {
   position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column; /* Stacked for mobile */
-  align-items: center;
-  gap: 40px;
-  max-width: 1200px;
+  z-index: 10;
+  max-width: 1100px;
   width: 100%;
-  margin: 0 auto;
-  text-align: center; /* Center text for mobile */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 50px;
+  align-items: center;
 }
 
-/* -----------------------------------------------------------
-   2. IMAGE & MORPHING EFFECT
------------------------------------------------------------ */
-.about-image {
-  flex: 1;
+/* --- IMAGE STYLING --- */
+.about-image-wrapper {
+  position: relative;
   display: flex;
   justify-content: center;
-  position: relative;
+  align-items: center;
 }
 
-.about-image img {
-  width: 180px;
-  height: 180px;
-  aspect-ratio: 1 / 1;
+.about-img {
+  width: 220px;
+  height: 220px;
   object-fit: cover;
-  /* Custom blob shape */
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  border: 4px solid rgba(97, 219, 251, 0.3);
-  box-shadow: 0 0 30px rgba(97, 219, 251, 0.2);
-  transition: all 0.5s ease-in-out;
+  border: 3px solid rgba(97, 219, 251, 0.5);
+  z-index: 2;
+  transition: 0.5s ease-in-out;
+  filter: grayscale(20%);
 }
 
-.about-image img:hover {
+.about-img:hover {
   border-radius: 50%;
-  transform: scale(1.05);
-  box-shadow: 0 0 50px rgba(97, 219, 251, 0.5);
-  border-color: #61DBFB;
+  transform: scale(1.02);
+  filter: grayscale(0%);
+  border-color: #61dbfb;
 }
 
-/* -----------------------------------------------------------
-   3. TEXT CONTENT & TYPOGRAPHY
------------------------------------------------------------ */
-.about-content {
-  flex: 1.5;
+.image-blob {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(97, 219, 251, 0.2) 0%, transparent 70%);
+  filter: blur(20px);
+  animation: pulseBlob 4s infinite alternate;
 }
 
+/* --- TEXT CONTENT --- */
 .about-title {
-  font-size: clamp(2rem, 8vw, 3rem);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 800;
-  background: linear-gradient(to right, #61DBFB, #00ff88);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
   margin-bottom: 20px;
+  background: linear-gradient(90deg, #61dbfb, #00ff88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .about-description {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #ccd6f6;
-  margin-bottom: 25px;
-  opacity: 0.9;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #94a3b8;
+  margin-bottom: 40px;
 }
 
-/* Personal Info List */
-.about-info {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* --- EXPERIENCE CARDS --- */
+.exp-carousel {
+  position: relative;
+  height: 160px; /* Fixed height to prevent layout shift */
+  width: 100%;
 }
 
-.about-info li {
-  font-size: 1.05rem;
+.exp-card {
+  position: absolute;
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px) scale(0.95);
+}
+
+.exp-card.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0) scale(1);
+}
+
+.current-job {
+  border-color: rgba(97, 219, 251, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(97, 219, 251, 0.2);
+}
+
+.exp-header {
   display: flex;
-  flex-direction: column; /* Stack label/value for mobile */
   align-items: center;
-  gap: 4px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.about-info li strong {
-  color: #61DBFB;
-  font-weight: 600;
+.exp-emoji {
+  font-size: 1.5rem;
+}
+
+.exp-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: 0.85rem;
   letter-spacing: 1px;
+  color: #61dbfb;
+  display: flex;
+  align-items: center;
 }
 
-/* -----------------------------------------------------------
-   4. BUTTONS & ACTIONS
------------------------------------------------------------ */
-.btn-primary {
-  display: inline-block;
-  padding: 12px 30px;
-  background: transparent;
-  border: 2px solid #61DBFB;
-  color: #61DBFB !important;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 5px;
-  transition: all 0.4s ease;
-  cursor: pointer;
+.exp-company {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
 }
 
-.btn-primary:hover {
-  background: #61DBFB;
-  color: rgb(0, 0, 43) !important;
-  box-shadow: 0 0 20px rgba(97, 219, 251, 0.4);
-  transform: translateY(-3px);
+.exp-location {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 4px;
 }
 
-/* -----------------------------------------------------------
-   5. RESPONSIVE BREAKPOINTS (Desktop)
------------------------------------------------------------ */
-@media (min-width: 968px) {
-  .about-section {
-    padding: 100px 10%;
-  }
+/* --- ANIMATIONS --- */
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #00ff88;
+  border-radius: 50%;
+  margin-right: 8px;
+  box-shadow: 0 0 10px #00ff88;
+  animation: blink 1.5s infinite;
+}
 
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes pulseBlob {
+  from { transform: scale(1); opacity: 0.5; }
+  to { transform: scale(1.2); opacity: 0.8; }
+}
+
+/* --- RESPONSIVE --- */
+@media (min-width: 992px) {
   .about-container {
-    flex-direction: row; /* Side by side */
-    text-align: left;
-    gap: 80px;
-  }
-
-  .about-content {
+    grid-template-columns: 1fr 1.5fr;
     text-align: left;
   }
-
-  .about-image img {
-    width: 250px;
-    height: 250px;
-  }
-
-  .about-info li {
-    flex-direction: row; /* Horizontal list */
+  .about-image-wrapper {
     justify-content: flex-start;
-    align-items: center;
-    gap: 15px;
-  }
-
-  .about-info li strong {
-    width: 110px;
-    flex-shrink: 0;
-  }
-
-  .about-description {
-    font-size: 1.15rem;
   }
 }
