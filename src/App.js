@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
@@ -8,29 +9,41 @@ import Projects from "./components/Projects/Projects";
 import Footer from "./components/Footer/Footer";
 import Courses from "./components/Education/Courses";
 import Internship from "./components/Education/Internship";
-import "./App.css"; // Ensure this file is imported
+import SnakeGame from "./components/Game/SnakeGame"; // ✅ Import Game
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      {/* NAVBAR: Fixed to top */}
-      <Navbar />
-      
-      {/* MAIN CONTENT wrapper to fix the overlap */}
-      <main className="main-content-wrapper">
-        <Hero />
-        <About />
-        <Education />
-      
-      <Courses />
-      <Internship />
-        <Skills />
-        <Projects />
-      </main>
+    // ✅ Router must wrap everything to allow useNavigate() to work
+    <Router basename="/surajresume">
+      <div className="App">
+        <Navbar />
+        
+        <main className="main-content-wrapper">
+          <Routes>
+            {/* ✅ Main Portfolio Route */}
+            <Route path="/" element={
+              <>
+                <Hero />
+                <About />
+                <section id="edu">
+                  <Education />
+                  <Courses />
+                  <Internship />
+                </section>
+                <Skills />
+                <Projects />
+              </>
+            } />
 
-      {/* FOOTER: Fixed to bottom */}
-      <Footer />
-    </div>
+            {/* ✅ Snake Game Route */}
+            <Route path="/game" element={<SnakeGame />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

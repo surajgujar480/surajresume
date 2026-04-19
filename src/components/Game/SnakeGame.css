@@ -1,0 +1,196 @@
+/* ================= GAME WRAPPER ================= */
+.game-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #00001a;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 3D Moving Background Blobs */
+.bg-blob, .bg-blob-2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(97, 219, 251, 0.15) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 0;
+  animation: float 10s infinite alternate ease-in-out;
+}
+
+.bg-blob-2 {
+  right: -100px;
+  top: -100px;
+  background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  from { transform: translate(-10%, -10%) rotate(0deg); }
+  to { transform: translate(10%, 10%) rotate(20deg); }
+}
+
+/* ================= GAME CARD ================= */
+.game-card {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 25px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* ================= HEADER & UI ================= */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.score-text {
+  color: #61DBFB;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(97, 219, 251, 0.5);
+}
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background: #61DBFB;
+  color: #000;
+  transform: scale(1.1);
+}
+
+/* ================= GRID & CELLS ================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(20, 20px);
+  grid-template-rows: repeat(20, 20px);
+  gap: 1px;
+  background: rgba(0, 0, 0, 0.4);
+  position: relative;
+  border: 2px solid rgba(97, 219, 251, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+}
+
+.snake-head {
+  background: #61DBFB;
+  box-shadow: 0 0 20px #61DBFB;
+  z-index: 10;
+  border-radius: 4px;
+}
+
+.snake-body {
+  background: #014f86;
+  border-radius: 2px;
+  transform: scale(0.85);
+  transition: all 0.1s ease;
+}
+
+.food {
+  background: #ff4757;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #ff4757;
+  transform: scale(0.8);
+  animation: pulse 0.6s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(0.7); opacity: 0.8; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ================= OVERLAYS ================= */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 26, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  color: white;
+  text-align: center;
+}
+
+.overlay h3 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #ff4757;
+  text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+}
+
+.overlay p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.btn-row {
+  display: flex;
+  gap: 15px;
+}
+
+/* ================= BUTTONS ================= */
+.action-btn {
+  padding: 12px 30px;
+  background: transparent;
+  border: 2px solid #61DBFB;
+  color: #61DBFB;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background: #61DBFB;
+  color: #000;
+  box-shadow: 0 0 20px rgba(97, 219, 251, 0.6);
+  transform: translateY(-3px);
+}
+
+.action-btn.exit {
+  border-color: #ff4757;
+  color: #ff4757;
+}
+
+.action-btn.exit:hover {
+  background: #ff4757;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255, 71, 87, 0.6);
+}
