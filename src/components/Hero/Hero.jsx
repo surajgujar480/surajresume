@@ -209,7 +209,7 @@ export default function Hero() {
           <a href="/Suraj_Gujar_Resume.pdf" download className="btn-hero btn-main">
             Download CV
           </a>
-          <a href="#project" className="btn-hero btn-outline">
+          <a href="#projects" className="btn-hero btn-outline">
             My Work
           </a>
         </div>

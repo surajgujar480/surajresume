@@ -235,3 +235,128 @@
     transform: translateY(-5px); /* Less hover move on mobile */
   }
 }
+/* ... Keep your Section, Grid, and Scrollbar setup from above ... */
+
+/* -----------------------------------------------------------
+   1. PRIMARY CARD OVERRIDE
+   Specific styling for "Personal Portfolio v2"
+----------------------------------------------------------- */
+.project-card.primary-card {
+  border: 1px solid rgba(97, 219, 251, 0.4);
+  background: rgba(97, 219, 251, 0.03);
+  box-shadow: 0 0 30px rgba(97, 219, 251, 0.1);
+}
+
+.project-card.primary-card:hover {
+  background: rgba(97, 219, 251, 0.08);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+}
+
+/* -----------------------------------------------------------
+   2. CARD TITLE & STATUS (The Missing Links)
+----------------------------------------------------------- */
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.card-title-row h3 {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Status Badges */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-indicator.live {
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+}
+
+.status-indicator.dev {
+  color: #ffcc00;
+  background: rgba(255, 204, 0, 0.1);
+}
+
+/* Pulse Dot */
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.live .pulse-dot {
+  background: #00ff88;
+  box-shadow: 0 0 8px #00ff88;
+}
+
+.dev .pulse-dot {
+  background: #ffcc00;
+  box-shadow: 0 0 8px #ffcc00;
+}
+
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: inherit;
+  animation: ripple 2s infinite;
+}
+
+/* -----------------------------------------------------------
+   3. LINKS & HOVER COLORS
+----------------------------------------------------------- */
+.live-demo-link {
+  /* Default color for "Explore Live" */
+  color: #61DBFB; 
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Override for Primary project */
+.primary-card .live-demo-link {
+  color: #00ff88; 
+}
+
+/* -----------------------------------------------------------
+   4. TAGS & DESCRIPTION
+----------------------------------------------------------- */
+.card-desc {
+  color: #a0a0b0; /* Softer white for better hierarchy */
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.tech-tag {
+  background: rgba(255, 255, 255, 0.05);
+  color: #61DBFB;
+  border: 1px solid rgba(97, 219, 251, 0.2);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+}
+
+/* ... Keep your @keyframes and Responsive queries ... */

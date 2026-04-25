@@ -4,8 +4,20 @@ import "./Projects.css";
 import surajmusicImg from "../../assets/surajmusic.gif"; 
 import shopImg from "../../assets/shop.png";
 import attImg from "../../assets/ATT.png";
+import poloImg from "../../assets/pol.gif";
+// If you have a specific screenshot for your resume/portfolio, import it here
+// import portfolioImg from "../../assets/portfolio-v2.png"; 
 
 const projects = [
+  {
+    title: "Personal Portfolio v2",
+    tech: "React, Modern CSS, Framer Motion",
+    img: poloImg,
+    url: "https://surajgujar480.github.io/surajresume/",
+    description: "Interactive professional portfolio featuring high-end UI animations, glassmorphism, and responsive design.",
+    isLive: true,
+    isPrimary: true // Custom flag for styling
+  },
   {
     title: "Music Player",
     tech: "HTML, CSS, JS",
@@ -22,6 +34,7 @@ const projects = [
     description: "Digital record-keeping system for tracking daily attendance with local storage integration.",
     isLive: true
   },
+  
   {
     title: "E-Commerce Store",
     tech: "MERN Stack, Redux",
@@ -44,7 +57,7 @@ export default function Projects() {
         <div className="projects-grid">
           {projects.map((project, index) => (
             <article 
-              className="project-card" 
+              className={`project-card ${project.isPrimary ? 'primary-card' : ''}`} 
               key={index}
               style={{ animationDelay: `${index * 0.15}s` }}
             >
@@ -84,7 +97,7 @@ export default function Projects() {
                     rel="noreferrer"
                     className="live-demo-link"
                   >
-                    {project.isLive ? 'Explore Live' : 'Source Code'} 
+                    {project.isPrimary ? 'View Full Site' : (project.isLive ? 'Explore Live' : 'Source Code')} 
                     <span className="arrow"> →</span>
                   </a>
                 </div>
