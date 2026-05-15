@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import './Hero.css';
 import homeImg from "../../assets/homepol.jpg";
 import recapImg from "../../assets/recap.png"; 
+import resumePDF from "../../assets/v2 Suraj_Santosh_Gujar Resume.pdf";
+
 import { 
   SiReact, 
   SiNodedotjs, 
