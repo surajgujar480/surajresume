@@ -21,6 +21,7 @@ const TECH_STACK = [
   "React JS", "Node.js", "MongoDB", "Express", 
   "JavaScript", "Java", "Tailwind", "Bootstrap", "TypeScript"
 ];
+
 const ICON_MAP = {
   "React JS": <SiReact />,
   "Node.js": <SiNodedotjs />,
@@ -37,7 +38,7 @@ const ROLES = [
   "Suraj (Happy to say.)",
   "MERN Stack Developer.",
   "Web Developer.",
-    "Problem Solver."
+  "Problem Solver."
 ];
 
 export default function Hero() {
@@ -198,17 +199,18 @@ export default function Hero() {
           user-centric web applications with modern tech.
         </p>
 
-      <div className="hero-icons-container">
-  {TECH_STACK.slice(0, 6).map((tech) => (
-    <div key={tech} className="icon-wrapper">
-      <span className="tech-icon">{ICON_MAP[tech]}</span>
-      <span className="tech-label">{tech}</span>
-    </div>
-  ))}
-</div>
+        <div className="hero-icons-container">
+          {TECH_STACK.slice(0, 6).map((tech) => (
+            <div key={tech} className="icon-wrapper">
+              <span className="tech-icon">{ICON_MAP[tech]}</span>
+              <span className="tech-label">{tech}</span>
+            </div>
+          ))}
+        </div>
 
         <div className="hero-btns">
-          <a href="/Suraj_Gujar_Resume.pdf" download className="btn-hero btn-main">
+          {/* Resolved: Using the imported 'resumePDF' variable directly */}
+          <a href={resumePDF} download="Suraj_Gujar_Resume.pdf" className="btn-hero btn-main">
             Download CV
           </a>
           <a href="#projects" className="btn-hero btn-outline">
@@ -250,7 +252,7 @@ export default function Hero() {
   );
 }
 
-// Exporting as a named function since Hero is the Default export
+// Secondary Skills Section export
 export function Skills() {
   return (
     <section id="skills" className="skills-section">
